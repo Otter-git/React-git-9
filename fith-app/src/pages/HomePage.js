@@ -1,26 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutInitiate } from "../redux/actions";
+import { db } from "../services/firebase";
 
 const HomePage = () => {
-    const user = useSelector(state => state.currentUser); 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [data, setData] = useState({});
 
-    const exit = () => {
-        if(user) {
-            dispatch(logoutInitiate())
+    useEffect(() => {
+        db.child('contacts').on('value', (snap) => {
+            if(snap.val() !== null) {
+                setData({...snap.val()})
+            } else {
+                setData({})
+            }
+        })
+        return () => {
+            setData({})
         }
-        setTimeout(() => {
-            navigate('/login')
-        }, 2000)
-    }
+    }, [])
 
     return (
         <div>
             <h3>Home</h3>
-            <button onClick={exit}>Log out</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(data).map((id) => {
+                        return (
+                            <tr key={data[id]}>
+                                <td>{data[id].name}</td>
+                                <td>{data[id].email}</td>
+                                <td>{data[id].contact}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
         </div>
     )
 };
