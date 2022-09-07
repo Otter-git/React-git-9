@@ -29,9 +29,9 @@ const Header = () => {
                 <CustomLink to={'/about'}>About</CustomLink>
                 <CustomLink to={'/register'}>Registration</CustomLink>
                 {user ? (
-                    <p onClick={exit}>
+                    <button onClick={exit}>
                         Log out
-                    </p>
+                    </button>
                 ) : (
                     <CustomLink to={'/login'}>
                         Log in

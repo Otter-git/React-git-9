@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutInitiate } from "../redux/actions";
 import { db } from "../services/firebase";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [data, setData] = useState({});
@@ -22,7 +23,6 @@ const HomePage = () => {
 
     return (
         <div>
-            <h3>Home</h3>
             <table>
                 <thead>
                     <tr>
@@ -35,7 +35,7 @@ const HomePage = () => {
                     {Object.keys(data).map((id) => {
                         return (
                             <tr key={data[id]}>
-                                <td>{data[id].name}</td>
+                                <td><Link to={'/aboutcontact/' + data[id].name}>{data[id].name}</Link></td>
                                 <td>{data[id].email}</td>
                                 <td>{data[id].contact}</td>
                             </tr>

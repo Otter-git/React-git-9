@@ -1,4 +1,5 @@
 import {Routes, Route} from "react-router-dom";
+import AboutContactPage from "../pages/AboutContactPage";
 import AboutPage from "../pages/AboutPage";
 import AddContactPage from "../pages/AddContactPage";
 import HomePage from "../pages/HomePage";
@@ -19,6 +20,7 @@ function App() {
         </ProtectedRoutes>}/>
         <Route path={'/register'} element={<RegisterPage />}/>
         <Route path={'/about'} element={<AboutPage />}/>
+        <Route path={'/aboutcontact/:userName'} element={<AboutContactPage />} />
         <Route path={'*'} element={<NotFoundPage />}/>
       </Route>
     </Routes>
