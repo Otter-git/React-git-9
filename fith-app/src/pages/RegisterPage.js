@@ -21,9 +21,6 @@ const RegisterPage = () => {
 
     return (
         <div>
-            <header>
-                <Link to={'/login'}>Log in</Link>
-            </header>
             <h3>Registration</h3>
             <form onSubmit={sendForm}>
                 <input value={name} onChange={(event) => setName(event.target.value)}/>

@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.userBlock {
+    display: grid;
+    grid-template-columns: min-content;
+    padding-right: 40px;
+}
