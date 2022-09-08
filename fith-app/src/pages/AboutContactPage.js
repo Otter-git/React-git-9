@@ -21,11 +21,11 @@ const AboutContactPage = () => {
     return (
         <div>
             {userName}
-            <form>
+            <div>
                 <p>{data.name}</p>
                 <p>{data.email}</p>
                 <p>{data.contact}</p>
-            </form>
+            </div>
         </div>
     )
 };
