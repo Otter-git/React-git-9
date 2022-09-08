@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { Link } from "react-router-dom";
+import '../style/homePage.css';
 
 const initialState = {
     name: '',
@@ -10,7 +11,6 @@ const initialState = {
 
 const HomePage = () => {
     const [data, setData] = useState({});
-    console.log(data);
     const [state, setState] = useState(initialState);
     const {name, email, contact} = state;
 
@@ -28,7 +28,6 @@ const HomePage = () => {
     }, [])
 
     const deleted = (event) => {
-        console.log(event.target.id);
         db.child(`contacts/${event.target.id}`).remove((err) => {
             if (err) {
               console.log(err);
@@ -59,34 +58,23 @@ const HomePage = () => {
 
 
     return (
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <div>Name</div>
-                        <div>E-mail</div>
-                        <div>Contact</div>
+        <div className='container'>
+            {Object.keys(data).map((id) => {
+                return (
+                    <div className='userBlock' key={id}>
+                        <div><Link to={'/aboutcontact/' + data[id].name}>{data[id].name}</Link></div>
+                        <div>{data[id].email}</div>
+                        <div>{data[id].contact}</div>
+                        <form onClick={sendForm}>
+                            <input placeholder='name' name={'name'} onChange={changed} value={name}/>
+                            <input placeholder='email' name={'email'} onChange={changed} value={email}/>
+                            <input placeholder='contact' name={'contact'} onChange={changed} value={contact}/>
+                            <button id={id} type="submit">Edit</button>
+                        </form>
+                        <button onClick={deleted} id={id}>Delete</button>
                     </div>
-                </div>
-                <div>
-                    {Object.keys(data).map((id) => {
-                        return (
-                            <div key={id}>
-                                <div><Link to={'/aboutcontact/' + data[id].name}>{data[id].name}</Link></div>
-                                <div>{data[id].email}</div>
-                                <div>{data[id].contact}</div>
-                                <button onClick={deleted} id={id}>Delete</button>
-                                <form onClick={sendForm}>
-                                    <input name={'name'} onChange={changed} value={name}/>
-                                    <input name={'email'} onChange={changed} value={email}/>
-                                    <input name={'contact'} onChange={changed} value={contact}/>
-                                    <button id={id} type="submit">Edit</button>
-                                </form>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
+                )
+            })}
         </div>
     )
 };

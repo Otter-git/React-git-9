@@ -5,11 +5,9 @@ import { db } from "../services/firebase";
 const AboutContactPage = () => {
     const [data, setData] = useState({});
     const { userName } = useParams();
-    console.log(data);
 
     useEffect(() => {
         db.child('contacts').on('value', (snap) => {
-            console.log(snap.val());
             for(let i in snap.val()) {
                 if (userName === snap.val()[i]["name"]) {
                     setData({...snap.val()[i]})
@@ -20,7 +18,7 @@ const AboutContactPage = () => {
 
     return (
         <div>
-            {userName}
+            <h3>{userName}</h3>
             <div>
                 <p>{data.name}</p>
                 <p>{data.email}</p>
